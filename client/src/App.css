@@ -111,12 +111,27 @@
 }
 
 
-.chat-log{
-  padding: 10px; /* Add padding to the chat log container */
-  max-height:90vh; /* Limit the height and add scroll if needed */
-  overflow-y:scroll;
-  text-align:left;
+.chat-log {
+  padding: 10px;
+  max-height: 90vh;
+  overflow-y: scroll;
+  text-align: left;
+  scrollbar-width: thin;
+  scrollbar-color: #4CAF50 #eaeaea; /* Change the colors as needed */
 }
+
+.chat-log::-webkit-scrollbar {
+  width: 8px; /* Adjust the width of the scrollbar */
+}
+
+.chat-log::-webkit-scrollbar-thumb {
+  background-color: #4CAF50; /* Change the color of the thumb */
+}
+
+.chat-log::-webkit-scrollbar-track {
+  background-color: #40414f; /* Change the color of the track */
+}
+
 
 .chat-message.chatgpt{
   background-color:#444654;

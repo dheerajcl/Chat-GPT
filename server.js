@@ -2,7 +2,8 @@ const { Configuration, OpenAIApi } = require("openai");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const mongoose = require("mongoose");
+require('dotenv').config();
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -15,25 +16,10 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-mongoose.connect(
-  process.env.MY_MONGO_URL,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
-
-const chatSchema = new mongoose.Schema({
-  message: String,
-});
-
-const Chat = mongoose.model("Chat", chatSchema);
-
 app.post("/", async (req, res) => {
   const { message } = req.body;
   console.log("Received message", message);
 
-  // Generate GPT response
   const response = await openai.createCompletion({
     model: "gpt-3.5-turbo-instruct",
     prompt: `${message}`,
@@ -43,24 +29,9 @@ app.post("/", async (req, res) => {
   const responseData = response.data.choices[0].text.trim();
   console.log("Generated response", responseData);
 
-  // Append the GPT response to the chat history
-  const newGptMessage = new Chat({ message: responseData });
-  await newGptMessage.save();
-
   res.json({
     message: responseData,
   });
-});
-
-// Retrieve chat history from MongoDB
-app.get("/history", async (req, res) => {
-  try {
-    const chatHistory = await Chat.find();
-    res.json({ chatHistory });
-  } catch (error) {
-    console.error("Error fetching chat history:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
 });
 
 app.listen(port, () => {

@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
 import './normal.css';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import SendIcon from '@mui/icons-material/Send';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
 
   async function handleSubmit(e){
     e.preventDefault();
+    
     let chatLogNew = [...chatLog, {user:"You", message:`${input}`}]
     setInput("");
     setChatLog(chatLogNew)
@@ -43,21 +45,6 @@ function App() {
     const data =await response.json();
     setChatLog([...chatLogNew, {user:"GPT", message: `${data.message}`}])
   }
-
-  useEffect(() => {
-    const fetchChatHistory = async () => {
-      try {
-        const response = await fetch("http://localhost:3040/history");
-        const data = await response.json();
-        const chatHistory = data.chatHistory || [];
-        setChatLog(chatHistory);
-      } catch (error) {
-        console.error("Error fetching chat history:", error);
-      }
-    };
-
-    fetchChatHistory();
-  }, []);
 
   return (
     <div className={`App ${LightMode ? 'light-mode' : ''}`}>
