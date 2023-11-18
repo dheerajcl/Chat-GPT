@@ -16,6 +16,11 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the ChatGPT!");
+});
+
+
 app.post("/", async (req, res) => {
   const { message } = req.body;
   console.log("Received message", message);
