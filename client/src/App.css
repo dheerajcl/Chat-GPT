@@ -112,6 +112,9 @@
 
 
 .chat-log{
+  padding: 10px; /* Add padding to the chat log container */
+  max-height:90vh; /* Limit the height and add scroll if needed */
+  overflow-y:scroll;
   text-align:left;
 }
 
@@ -124,13 +127,10 @@
 }
 
 .chat-message-center {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0; /* Reset margin for centering */
+  padding: 12px; /* Add padding for spacing inside conversation blocks */
   display: flex;
   flex-direction: row;
-  padding: 12px;
-  padding-left: 24px;
-  padding-right: 24px;
   justify-content: center;
   align-items: center;
   font-size: 1.15em;
@@ -140,19 +140,8 @@
 
 
 .light-mode .chat-message-center{
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-direction: row;
-  padding: 12px;
-  padding-left: 24px;
-  padding-right: 24px;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.15em;
-  word-break: break-all;
-  white-space: pre-line;
   color: black;
+  
 }
 
 .avatar{
@@ -160,6 +149,7 @@
   border-radius: 50%;
   width:40px;
   height:40px;
+  margin-right: 10px;
 }
 
 .avatar.chatgpt{
@@ -170,6 +160,7 @@
 }
 
 .message{
+  flex:1;
   padding-left: 40px;
   padding-right:40px;
 }

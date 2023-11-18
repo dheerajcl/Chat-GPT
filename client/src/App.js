@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import './normal.css';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import SendIcon from '@mui/icons-material/Send';
@@ -29,7 +29,7 @@ function App() {
     let chatLogNew = [...chatLog, {user:"You", message:`${input}`}]
     setInput("");
     setChatLog(chatLogNew)
-    const messages=chatLogNew.map((message)=>message.message).join("\n")
+    const messages = chatLogNew.map((message) => message.message.trim()).join("\n");
     const response=await fetch("http://localhost:3040",{
       method:"POST",
       headers:{
@@ -43,6 +43,21 @@ function App() {
     const data =await response.json();
     setChatLog([...chatLogNew, {user:"GPT", message: `${data.message}`}])
   }
+
+  useEffect(() => {
+    const fetchChatHistory = async () => {
+      try {
+        const response = await fetch("http://localhost:3040/history");
+        const data = await response.json();
+        const chatHistory = data.chatHistory || [];
+        setChatLog(chatHistory);
+      } catch (error) {
+        console.error("Error fetching chat history:", error);
+      }
+    };
+
+    fetchChatHistory();
+  }, []);
 
   return (
     <div className={`App ${LightMode ? 'light-mode' : ''}`}>
@@ -64,7 +79,7 @@ function App() {
       </div>
       <div className="chat-input-holder">
         <form onSubmit={handleSubmit}>
-        <input rows="1" placeholder='Message ChatGPT..'
+        <input rows="5" placeholder='Message ChatGPT..'
         value={input}
         onChange={(e) => setInput(e.target.value)}
         className="chat-input-textarea">
@@ -79,6 +94,7 @@ function App() {
 }
 
 const ChatMessage=({message})=>{
+  const trimmedMessage=message.message.trim();
   return(
     <div className={`chat-message ${message.user === "GPT" && "chatgpt"}`}>
           <div className="chat-message-center">
@@ -100,7 +116,7 @@ const ChatMessage=({message})=>{
   </svg>}
           </div>
           <div className="message">
-            {message.message}
+            {trimmedMessage}
           </div>
           </div>
         </div>
