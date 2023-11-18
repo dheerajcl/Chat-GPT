@@ -11,12 +11,12 @@ const port = 3040;
 
 const configuration = new Configuration({
   organization: "org-HAYLuBOVDIsjTvhmRYiBIMpw",
-  apiKey: "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",
+  apiKey: process.env.MY_OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
 mongoose.connect(
-  "mongodb+srv://dheerajcl:Dheer%40j12@cluster0.ukvgapl.mongodb.net/ChatGPT",
+  process.env.MY_MONGO_URL,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -64,5 +64,5 @@ app.get("/history", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`App listening at http://localhost:${port}`);
 });
