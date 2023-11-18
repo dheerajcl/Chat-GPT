@@ -1,11 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import './normal.css';
 import {useState} from 'react';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import SendIcon from '@mui/icons-material/Send';
-import CircularProgress from '@mui/material/CircularProgress';
 
 
 function App() {
