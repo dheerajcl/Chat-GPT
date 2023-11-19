@@ -11,14 +11,18 @@ const port = process.env.PORT || 3040;
 
 const configuration = new Configuration({
   organization: "org-HAYLuBOVDIsjTvhmRYiBIMpw",
-  apiKey: process.env.MY_OPENAI_API_KEY,
+  apiKey:"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",
 });
 const openai = new OpenAIApi(configuration);
 
-app.use((req, res, next) => {
-  cors()(req, res, next);
-});
+const corsOptions = {
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
 
+app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
   res.send("Welcome to the ChatGPT!");
