@@ -30,7 +30,7 @@ function App() {
     setInput("");
     setChatLog(chatLogNew)
     const messages = chatLogNew.map((message) => message.message.trim()).join("\n");
-    const response=await fetch("http://codesynchub.me/Chat-GPT/api",{
+    const response=await fetch("http://codesynchub.me/Chat-GPT",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"

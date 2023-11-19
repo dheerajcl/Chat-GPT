@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to the ChatGPT!");
 });
 
-app.post("/api", async (req, res) => {
+app.post("/", async (req, res) => {
   console.log("Received POST request at /api");
   const { message } = req.body;
   console.log("Received message", message);
