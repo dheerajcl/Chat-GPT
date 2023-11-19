@@ -16,7 +16,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const corsOptions = {
-  origin: "https://chat-gpt-xi-peach.vercel.app/",
+  origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
