@@ -15,14 +15,10 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const corsOptions = {
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
+app.use((req, res, next) => {
+  cors()(req, res, next);
+});
 
-app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
   res.send("Welcome to the ChatGPT!");
