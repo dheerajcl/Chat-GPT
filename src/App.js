@@ -30,7 +30,7 @@ function App() {
     setInput("");
     setChatLog(chatLogNew)
     const messages = chatLogNew.map((message) => message.message.trim()).join("\n");
-    const response=await fetch("http://codesynchub.me/Chat-GPT",{
+    const response=await fetch("https://chat-gpt-xi-peach.vercel.app/api",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"

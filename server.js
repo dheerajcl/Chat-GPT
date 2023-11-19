@@ -10,12 +10,12 @@ const port = process.env.PORT || 3040;
 
 const configuration = new Configuration({
   organization: "org-HAYLuBOVDIsjTvhmRYiBIMpw",
-  apiKey: "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",
+  apiKey: process.env.MY_OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
 const corsOptions = {
-  origin: "http://codesynchub.me/Chat-GPT",
+  origin: "https://chat-gpt-xi-peach.vercel.app",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to the ChatGPT!");
 });
 
-app.post("/", async (req, res) => {
+app.post("/api", async (req, res) => {
   console.log("Received POST request at /api");
   const { message } = req.body;
   console.log("Received message", message);
