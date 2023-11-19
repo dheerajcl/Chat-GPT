@@ -7,8 +7,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
-const port = 3040;
+const port = process.env.PORT || 3040;
 
 const configuration = new Configuration({
   organization: "org-HAYLuBOVDIsjTvhmRYiBIMpw",
@@ -16,12 +15,21 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+const corsOptions = {
+  origin: "https://chat-gpt-xi-neon.vercel.app/",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+
 app.get("/", (req, res) => {
   res.send("Welcome to the ChatGPT!");
 });
 
 
-app.post("/", async (req, res) => {
+app.post("/api", async (req, res) => {
   const { message } = req.body;
   console.log("Received message", message);
 
