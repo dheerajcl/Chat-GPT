@@ -22,9 +22,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start:front": "react-scripts start",
-    "start": "concurrently \"npm run start:front\" \"npm run server:dev\"",
-    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "predeploy": "npm run build",
     "server:dev": "nodemon server.js",
     "server:prod": "node server.js",
     "test": "react-scripts test",
